@@ -1,3 +1,9 @@
+import { Nav } from './Nav'
+
 export default function Layout() {
-  return <div>Hello World</div>
+  return (
+    <div>
+      <Nav />
+    </div>
+  )
 }
