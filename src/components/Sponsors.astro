@@ -1,0 +1,195 @@
+---
+const { lang = 'zh' } = Astro.props as { lang?: 'zh' | 'en' };
+const i18n = {
+  zh: {
+    title: '支持作者',
+    desc: '如果项目对您有帮助，欢迎赞助支持',
+    scan: '扫码赞助',
+    sponsor: '立即赞助'
+  },
+  en: {
+    title: 'Sponsor the Author',
+    desc: 'If this project helps you, consider supporting development',
+    scan: 'Scan to Sponsor',
+    sponsor: 'Sponsor Now'
+  }
+}[lang];
+
+const sponsors = [
+  { 
+    name: '支付宝',
+    icon: 'i-carbon-logo-alipay',
+    qrcode: '/sponsors/alipay.jpg'
+  },
+  {
+    name: '微信支付',
+    icon: 'i-carbon-logo-wechat',
+    qrcode: '/sponsors/wechat.jpg'
+  },
+  {
+    name: '爱发电',
+    icon: 'i-carbon-favorite',
+    url: 'https://ifdian.net/a/10k_AI'
+  }
+];
+---
+
+<div class="sponsor-container">
+  <h3 class="title">{i18n.title}</h3>
+  <p class="desc">{i18n.desc}</p>
+  
+  <div class="grid">
+    {sponsors.map(item => (
+      <div class="card">
+        <div class={`icon ${item.icon} text-4xl`} />
+        <h3>{item.name}</h3>
+        
+        {item.qrcode ? (
+          <div class="qrcode">
+            <img 
+              src={item.qrcode} 
+              alt={`${item.name}二维码`}
+              width={150}
+              height={150}
+              loading="lazy"
+            />
+            <p class="tip">{i18n.scan}</p>
+          </div>
+        ) : (
+          <a
+            href={item.url}
+            target="_blank"
+            class="sponsor-button"
+          >
+            {i18n.sponsor}
+          </a>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .sponsor-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 600;
+    background: linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .desc {
+    text-align: center;
+    color: #666;
+    margin: 1rem 0 2rem;
+    font-size: 1.1rem;
+  }
+
+  .grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+      border-color: rgba(189, 52, 254, 0.3);
+    }
+  }
+
+  .qrcode {
+    position: relative;
+    margin: 1.5rem 0;
+    img {
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      transition: transform 0.3s ease;
+    }
+    &:hover {
+      img {
+        transform: scale(1.02);
+      }
+      &::before {
+        opacity: 1;
+      }
+      .tip {
+        opacity: 1;
+      }
+    }
+  }
+
+  .tip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    z-index: 1;
+    font-weight: 500;
+    color: #333 !important;
+  }
+
+  .sponsor-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
+    color: white;
+    border-radius: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(50, 69, 255, 0.2);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 12px -1px rgba(50, 69, 255, 0.3);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sponsor-container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .title {
+      font-size: 1.75rem;
+    }
+    
+    .desc {
+      font-size: 1rem;
+    }
+    
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .card {
+      padding: 1.5rem;
+    }
+  }
+</style> 
