@@ -66,9 +66,11 @@ const sponsors = [
           <a
             href={item.url}
             target="_blank"
-            class="sponsor-button"
+            class="external-sponsor"
           >
-            {i18n.sponsor}
+            <span class="platform-name">{item.name}</span>
+            <span class="action-text">{i18n.sponsor}</span>
+            <span class="arrow">→</span>
           </a>
         )}
       </div>
@@ -213,18 +215,45 @@ const sponsors = [
     }
   }
 
-  .sponsor-button {
-    background: linear-gradient(90deg, #3245ff, #bc52ee);
-    color: white;
-    padding: 1rem 2rem;
+  .external-sponsor {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    border: 2px solid #3245ff;
+    color: #3245ff;
+    padding: 0.75rem 1.5rem;
     border-radius: 12px;
     font-weight: 500;
     text-decoration: none;
     transition: all 0.3s ease;
     
+    .platform-name {
+      font-weight: 600;
+    }
+
+    .action-text {
+      color: #666;
+    }
+
+    .arrow {
+      font-size: 1.2em;
+      transition: transform 0.3s ease;
+    }
+    
     &:hover {
+      background: #3245ff;
+      color: white;
       transform: translateY(-2px);
       box-shadow: 0 8px 15px rgba(50, 69, 255, 0.2);
+
+      .action-text {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .arrow {
+        transform: translateX(4px);
+      }
     }
   }
 
